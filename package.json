@@ -3,6 +3,8 @@
   "version": "0.0.1",
   "description": "",
   "scripts": {
+    "_check:formatting": "npx prettier --check .",
+    "check:formatting": "npm run _check:formatting || (echo '[help] Run: npm run prettier:write'; exit 1)",
     "prettier:write": "npx prettier --write .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
