@@ -1,0 +1,22 @@
+{
+  "name": "gh-actions",
+  "version": "0.0.1",
+  "description": "",
+  "scripts": {
+    "prettier:write": "npx prettier --write .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chalin/gh-actions.git"
+  },
+  "author": "Patrice Chalin",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/chalin/gh-actions/issues"
+  },
+  "homepage": "https://github.com/chalin/gh-actions#readme",
+  "devDependencies": {
+    "prettier": "^2.8.4"
+  }
+}

@@ -26,11 +26,11 @@ jobs:
       - name: Is PR?
         if: ${{ github.event.issue.pull_request }}
         run: echo This is a PR
-        
+
       - name: Comment contains command?
         if: contains(github.event.comment.body, '/fix:format')
         run: echo "Comment contains command\n. ${{ github.event.comment.body }}"
-        
+
       - uses: actions/checkout@v3
       - name: Checkout PR
         env:
