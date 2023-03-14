@@ -1,0 +1,48 @@
+name: PR actions
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  fix-format:
+    name: /fix:format
+    runs-on: ubuntu-latest
+    if: |
+      ${{ github.event.issue.pull_request }} &&
+      contains(github.event.comment.body, '/fix:format')
+    env:
+      PR_NUM: ${{ github.event.issue.number }}
+      BODY: ${{ github.event.comment.body }}
+    permissions:
+      contents: write
+    steps:
+      - name: Context info
+        run: |
+          echo $PR_NUM
+          echo $BODY
+          echo ${{ github.event.issue.pull_request }}
+
+      - name: Is PR?
+        if: ${{ github.event.issue.pull_request }}
+        run: echo This is a PR
+        
+      - name: Comment contains command?
+        if: contains(github.event.comment.body, '/fix:format')
+        run: echo "Comment contains command\n. ${{ github.event.comment.body }}"
+        
+      - uses: actions/checkout@v3
+      - name: Checkout PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh pr checkout ${{ github.event.issue.number }}
+
+      - run: npm install --ignore-scripts
+      - run: npm run prettier:write
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        # with:
+        #   commit_message: 'Results from /fix:format'
+        #   commit_user_name: opentelemetrybot
+        #   commit_user_email: 107717825+opentelemetrybot@users.noreply.github.com
+        # env:
+        #   GH_TOKEN: ${{ secrets.OPENTELEMETRYBOT_GITHUB_TOKEN }}
