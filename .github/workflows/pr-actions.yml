@@ -13,14 +13,14 @@ jobs:
       contains(github.event.comment.body, '/fix:format')
     env:
       PR_NUM: ${{ github.event.issue.number }}
-      BODY: ${{ github.event.comment.body }}
+      COMMENT: ${{ github.event.comment.body }}
     permissions:
       contents: write
     steps:
       - name: Context info
         run: |
           echo $PR_NUM
-          echo $BODY
+          echo $COMMENT
           echo ${{ github.event.issue.pull_request }}
 
       - name: Is PR?
@@ -30,6 +30,12 @@ jobs:
       - name: Comment contains command?
         if: contains(github.event.comment.body, '/fix:format')
         run: echo "Comment contains command\n. ${{ github.event.comment.body }}"
+
+      - name: Is PR and contains command?
+        if: |
+          ${{ github.event.issue.pull_request }} &&
+          contains(github.event.comment.body, '/fix:format')
+        run: echo yep
 
       - uses: actions/checkout@v3
       - name: Checkout PR
