@@ -1,3 +1,2 @@
 # gh-actions
-
 Testing formatting.
