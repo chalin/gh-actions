@@ -18,8 +18,8 @@ jobs:
     env:
       PR_NUM: ${{ github.event.issue.number }}
       COMMENT: ${{ github.event.comment.body }}
-      REF: ${{ github.event.pull_request.head.ref }}
-      REPO: ${{ github.event.pull_request.head.repo.full_name }}
+      REF: ${{ github.event.issue.pull_request.head.ref }}
+      REPO: ${{ github.event.issue.pull_request.head.repo.full_name }}
 
     steps:
       - name: Context info
