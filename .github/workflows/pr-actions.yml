@@ -20,39 +20,18 @@ jobs:
       COMMENT: ${{ github.event.comment.body }}
       REF: ${{ github.event.issue.pull_request.head.ref }}
       REPO: ${{ github.event.issue.pull_request.head.repo.full_name }}
-      GITHUB_CONTEXT: ${{ toJSON(github) }}
+      # GITHUB_OBJ: ${{ toJSON(github) }}
+
     steps:
       - name: Context info
         run: |
           echo $PR_NUM
           echo $COMMENT
-          echo "$GITHUB_CONTEXT"
-
-      - name: Is PR event?
-        if: github.event.issue.pull_request
-        run: echo This is a PR $PR_NUM
-
-      - name: Comment contains command?
-        if: contains(env.COMMENT, '/fix:format')
-        run: echo "Comment contains command\n. $COMMENT\n  ${{ github.event.comment.body }}"
-
-      - name: Is PR and contains command?
-        if: |
-          github.event.issue.pull_request &&
-          contains(env.COMMENT, '/fix:format')
-        run: |
-          echo "Comment: $COMMENT"
 
       - uses: actions/checkout@v3
-        with:
-          # fetch-depth: 0
-          ref: ${{ env.REF }}
-          repository: ${{ env.REPO }}
 
-      # - name: Checkout PR
-      #   env:
-      #     GH_TOKEN: ${{ github.token }}
-      #   run: gh pr checkout ${{ github.event.issue.number }}
+      - run: gh pr checkout ${{ github.event.issue.number }}
+        env: { GH_TOKEN: ${{ github.token }} }
 
       - run: npm install --ignore-scripts
       - run: |
