@@ -29,8 +29,6 @@ jobs:
           echo $COMMENT
 
       - uses: actions/checkout@v3
-        with:
-          token: ${{ github.token }}
 
       - run: gh pr checkout ${{ github.event.issue.number }}
         env:
@@ -43,9 +41,9 @@ jobs:
           git branch -v
 
       - uses: stefanzweifel/git-auto-commit-action@v4
-        # with:
-        #   commit_message: 'Results from /fix:format'
-        #   commit_user_name: opentelemetrybot
-        #   commit_user_email: 107717825+opentelemetrybot@users.noreply.github.com
-        # env:
-        #   GH_TOKEN: ${{ secrets.OPENTELEMETRYBOT_GITHUB_TOKEN }}
+        with:
+          commit_message: 'Results from /fix:format'
+          commit_user_name: opentelemetrybot
+          commit_user_email: 107717825+opentelemetrybot@users.noreply.github.com
+        env:
+          GH_TOKEN: ${{ secrets.OPENTELEMETRYBOT_GITHUB_TOKEN }}
