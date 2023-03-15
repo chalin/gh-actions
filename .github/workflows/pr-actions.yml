@@ -13,7 +13,7 @@ jobs:
       COMMENT: ${{ github.event.comment.body }}
     # if: |
     #   github.event_name == 'pull_request' &&
-    #   contains((env.COMMENT, '/fix:format')
+    #   contains(env.COMMENT, '/fix:format')
     permissions:
       contents: write
     steps:
@@ -27,13 +27,13 @@ jobs:
         run: echo This is a PR $PR_NUM
 
       - name: Comment contains command?
-        if: contains((env.COMMENT, '/fix:format')
+        if: contains(env.COMMENT, '/fix:format')
         run: echo "Comment contains command\n. $COMMENT\n  ${{ github.event.comment.body }}"
 
       - name: Is PR and contains command?
         if: |
           github.event_name == 'pull_request' &&
-          contains((env.COMMENT, '/fix:format')
+          contains(env.COMMENT, '/fix:format')
         run: |
           echo "Comment: $COMMENT"
 
