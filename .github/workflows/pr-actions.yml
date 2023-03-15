@@ -20,12 +20,13 @@ jobs:
       COMMENT: ${{ github.event.comment.body }}
       REF: ${{ github.event.issue.pull_request.head.ref }}
       REPO: ${{ github.event.issue.pull_request.head.repo.full_name }}
-
+      GITHUB_CONTEXT: ${{ toJSON(github) }}
     steps:
       - name: Context info
         run: |
           echo $PR_NUM
           echo $COMMENT
+          echo "$GITHUB_CONTEXT"
 
       - name: Is PR event?
         if: github.event.issue.pull_request
