@@ -12,7 +12,7 @@ jobs:
       PR_NUM: ${{ github.event.issue.number }}
       COMMENT: ${{ github.event.comment.body }}
     # if: |
-    #   github.event_name == 'pull_request' &&
+    #   github.event.issue.pull_request &&
     #   contains(env.COMMENT, '/fix:format')
     permissions:
       contents: write
@@ -23,7 +23,7 @@ jobs:
           echo $COMMENT
 
       - name: Is PR event?
-        if: github.event_name == 'pull_request'
+        if: github.event.issue.pull_request
         run: echo This is a PR $PR_NUM
 
       - name: Comment contains command?
@@ -32,7 +32,7 @@ jobs:
 
       - name: Is PR and contains command?
         if: |
-          github.event_name == 'pull_request' &&
+          github.event.issue.pull_request &&
           contains(env.COMMENT, '/fix:format')
         run: |
           echo "Comment: $COMMENT"
