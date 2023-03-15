@@ -8,12 +8,12 @@ jobs:
   fix-format:
     name: /fix:format
     runs-on: ubuntu-latest
+    if: |
+      github.event.issue.pull_request &&
+      contains(github.event.comment.body, '/fix:format')
     env:
       PR_NUM: ${{ github.event.issue.number }}
       COMMENT: ${{ github.event.comment.body }}
-    if: |
-      github.event.issue.pull_request &&
-      contains(env.COMMENT, '/fix:format')
     permissions:
       contents: write
     steps:
