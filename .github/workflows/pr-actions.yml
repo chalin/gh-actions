@@ -36,13 +36,14 @@ jobs:
 
       - run: npm install --ignore-scripts
       - run: |
-          git branch -v
           npm run prettier:write
           git status
+          git branch -v
+
+      - uses: stefanzweifel/git-auto-commit-action@v4
         # with:
         #   commit_message: 'Results from /fix:format'
         #   commit_user_name: opentelemetrybot
         #   commit_user_email: 107717825+opentelemetrybot@users.noreply.github.com
         # env:
         #   GH_TOKEN: ${{ secrets.OPENTELEMETRYBOT_GITHUB_TOKEN }}
-      # - uses: stefanzweifel/git-auto-commit-action@v4
