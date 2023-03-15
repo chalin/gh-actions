@@ -9,7 +9,7 @@ jobs:
     name: /fix:format
     runs-on: ubuntu-latest
     if: |
-      ${{ github.event.issue.pull_request }} &&
+      github.event_name == 'pull_request' &&
       contains(github.event.comment.body, '/fix:format')
     env:
       PR_NUM: ${{ github.event.issue.number }}
@@ -23,8 +23,8 @@ jobs:
           echo $COMMENT
           echo ${{ github.event.issue.pull_request }}
 
-      - name: Is PR?
-        if: ${{ github.event.issue.pull_request }}
+      - name: Is PR event?
+        if: github.event_name == 'pull_request'
         run: echo This is a PR
 
       - name: Comment contains command?
@@ -33,7 +33,7 @@ jobs:
 
       - name: Is PR and contains command?
         if: |
-          ${{ github.event.issue.pull_request }} &&
+          github.event_name == 'pull_request' &&
           contains(github.event.comment.body, '/fix:format')
         run: echo yep
 
